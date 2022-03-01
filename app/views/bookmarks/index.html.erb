@@ -1,7 +1,9 @@
 <div>
   <div>
     <h1>
-      List of all bookmarks
+      <% the_user_id = session[:user_id]%>
+      <% matching_user = User.where({ :id => the_user_id}).at(0)%>
+      <%=matching_user.first_name%> <%=matching_user.last_name%>'s bookmarks
     </h1>
   </div>
 </div>
@@ -15,25 +17,28 @@
     </h2>
 
     <form action="/insert_bookmark" method="post">
-      <div>
         <label for="user_id_box">
-          User
         </label>
 
-        <input type="text" id="user_id_box" name="query_user_id">
+        <input type="hidden" id="user_id_box" name="query_user_id" value = "<%= session.fetch(:user_id) %>">
       </div>
 
       <div>
         <label for="movie_id_box">
-          Movie
         </label>
 
-        <input type="text" id="movie_id_box" name="query_movie_id">
-      </div>
+        <select name="query_movie_id">
+      <% Movie.order(:title).each do |movie|%>
+          <option value="<%=movie.id%>">
+          <%=movie.title%>
+          </option>
+          <%end%>
+          </select>
 
       <button>
-        Create bookmark
+        Bookmark this Movie!
       </button>
+      </div>
     </form>
   </div>
 </div>
@@ -66,8 +71,9 @@
         <th>
         </th>
       </tr>
-
-      <% @list_of_bookmarks.each do |a_bookmark| %>
+      <% the_user_id = session.fetch(:user_id) %>
+      <% matching_bookmarks = Bookmark.where({:user_id=> the_user_id}).each do |a_bookmark| %>
+      <%# @list_of_bookmarks.each do |a_bookmark| %>
       <tr>
         <td>
           <%= a_bookmark.id %>
@@ -92,6 +98,10 @@
           <a href="/bookmarks/<%= a_bookmark.id %>">
             Show details
           </a>
+        </td>
+        <td>
+        <a href="/delete_bookmark/<%= a_bookmark.id%>"> un-bookmark
+        </a>
         </td>
       </tr>
       <% end %>

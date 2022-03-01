@@ -16,6 +16,7 @@
 
   <body>
 
+
 <ul>
 <% if session.fetch( :user_id) == nil %>
 <li>
@@ -61,7 +62,7 @@ bookmarks
 </a>
 </li>
 </ul>
-
+<%= notice %>
     <%= yield %>
   </body>
 </html>
