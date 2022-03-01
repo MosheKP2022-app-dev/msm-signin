@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get("/add_bookmark", { :controller => "bookmarks", :action => "create_from_movie_details" })        
+
   # Routes for the User account:
 
   # SIGN UP FORM
