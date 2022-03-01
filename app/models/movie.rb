@@ -14,12 +14,12 @@
 #
 class Movie < ApplicationRecord
 
-  belongs_to :director
+  belongs_to :director, :required => true
 
   has_many :characters
 
   validates :title, { :presence => true }
-  validates :director_id, { :presence => true }
+  #validates :director_id, { :presence => true }
 
 
 
