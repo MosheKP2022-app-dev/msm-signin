@@ -21,7 +21,6 @@
         </label>
 
         <input type="hidden" id="user_id_box" name="query_user_id" value = "<%= session.fetch(:user_id) %>">
-      </div>
 
       <div>
         <label for="movie_id_box">
@@ -36,7 +35,7 @@
           </select>
 
       <button>
-        Bookmark this Movie!
+        Bookmark this movie!
       </button>
       </div>
     </form>
@@ -84,7 +83,9 @@
         </td>
 
         <td>
-          <%= a_bookmark.movie_id %>
+        <%#a_bookmark.movie_id%>
+          <%movie =Movie.where({:id => a_bookmark.movie_id}).at(0) %>
+          <%=movie.title%>
         </td>
 
         <td>
